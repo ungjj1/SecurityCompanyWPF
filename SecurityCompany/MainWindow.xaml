@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SecurityCompany"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Background="#162033"
+        Title="Главная" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
         
+        <!--Верхняя панель-->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                        
+        </StackPanel>
+        <!--Логотип-->
+        <StackPanel Grid.Column="0" Grid.RowSpan="2">
+            
+        </StackPanel>
+        <!--Боковая панель-->
+        <StackPanel Grid.Column="0" Grid.Row="2" Background="White">
+            
+        </StackPanel>
+        <!--Низняя панель с администратором-->
+        <StackPanel Grid.Column="0" Grid.Row="3">
+            
+        </StackPanel>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="10"></Frame>
     </Grid>
 </Window>
