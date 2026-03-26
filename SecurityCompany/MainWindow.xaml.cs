@@ -20,33 +20,43 @@ namespace SecurityCompany
     /// </summary>
     public partial class MainWindow : Window
     {
-       private User currentuser;
+        private User currentUser;
         public MainWindow(User user)
         {
             InitializeComponent();
-            this.currentuser = user;
-            TBUserName.Text = $"{user.Surname} {user.FirstName} {user.Patronymic}";
-            TBRole.Text = $"{user.Role}";
+            this.currentUser = user;
+            TBUserName.Text = $"{currentUser.Surname} {currentUser.FirstName} {currentUser.Patronymic}";
+            TBRole.Text = $"{currentUser.Role}";
+
+            if(currentUser.Role != "Управляющий")
+            {
+                BtnObject.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void BtnClient_Click(object sender, RoutedEventArgs e)
         {
-            
+            MainFrame.Navigate(new Pages.ClientPage());
+            this.Title = "ГАРД - Клиенты";
         }
 
         private void BtnEmployees_Click(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new Pages.EmployeePage());
+            this.Title = "ГАРД - Штат";
         }
 
         private void BtnObject_Click(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new Pages.ObjectPage());
+            this.Title = "ГАРД - Объекты";
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

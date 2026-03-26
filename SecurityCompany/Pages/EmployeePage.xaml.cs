@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace SecurityCompany.Pages
 {
@@ -23,6 +24,32 @@ namespace SecurityCompany.Pages
         public EmployeePage()
         {
             InitializeComponent();
+            
+        }
+
+        private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void EditEmloyyeInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FireEmployye_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnCreateEmployye_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
