@@ -42,7 +42,7 @@ namespace SecurityCompany
 
         private void BtnEmployees_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Pages.EmployeePage());
+            MainFrame.Navigate(new Pages.EmployeePage(currentUser));
             this.Title = "ГАРД - Штат";
         }
 

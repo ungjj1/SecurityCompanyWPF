@@ -4,26 +4,31 @@
              xmlns:local="clr-namespace:SecurityCompany"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Button" x:Key="MainMenuBtn">
+        <Style x:Key="HoverButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#162033"/>
-            <Setter Property="Foreground" Value="#94A1B4"/>
-            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#38BDF8"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#1B97CE"/>
-                                <Setter Property="Foreground" Value="#162033"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#38BDF8"/>
+                    <Setter Property="Foreground" Value="#162033"/>
+                    <Setter Property="BorderBrush" Value="#162033"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Application.Resources>
 </Application>

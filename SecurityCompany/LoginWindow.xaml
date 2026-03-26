@@ -14,12 +14,9 @@
             <TextBox x:Name="TBLogin" Width="200" Height="25" FontSize="16"/>
             <Label Content="Пароль" Foreground="White"/>
             <PasswordBox x:Name="TBPassword" Width="200" Height="25" FontSize="16" />
-            <Button Margin="0 10 0 0" Content="Войти" Background="#131C2E" BorderBrush="#2E3C50" BorderThickness="1" Foreground="White" FontWeight="DemiBold" Height="30" Name="BtnLogin" Click="BtnLogin_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
+            <Button Margin="0 10 0 0" Content="Войти" Background="#131C2E" Name="BtnLogin" Click="BtnLogin_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Height="30"
+                 Foreground="White">
             </Button>
         </StackPanel>
     </Grid>

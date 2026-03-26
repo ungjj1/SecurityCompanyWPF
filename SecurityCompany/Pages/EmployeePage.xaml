@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EmployeePage">
     <Page.Resources>
-        <local:ImageConverter x:Key="ImageConverter"/>
+        <local:AvatarConverter x:Key="ImageConverter"/>
         <DataTemplate x:Key="EmployyeTemplate">
             <Border Margin="0 5" Padding="10" Height="140" BorderBrush="LightGray" BorderThickness="1" Background="Transparent" MouseLeftButtonUp="Border_MouseLeftButtonUp">
                 <Border.Style>
@@ -24,20 +24,22 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="74"/>
+                        <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left" Source="{Binding Path=Avatar, Converter={StaticResource ImageConverter}}"/>
-                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="10 0 0 0">
-                        <TextBlock Foreground="Black" FontWeight="Bold">
+                    <Border Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+                        <Image Source="{Binding Path=Avatar, Converter={StaticResource ImageConverter}}"/>
+                    </Border>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20 0 0 0">
+                        <TextBlock Foreground="White" FontWeight="Bold">
                             <Run Text="{Binding FirstName}"/>
                             <Run Text="{Binding SecondName}"/>
                         </TextBlock>
-                        <TextBlock Text="{Binding Post, StringFormat='Должность: {0}'}" FontSize="12"/>
-                        <TextBlock Text="{Binding Status, StringFormat='Статус сотрудника: {0}'}" FontSize="12"/>
+                        <TextBlock Text="{Binding Post, StringFormat='Должность: {0}'}" FontSize="12" Foreground="White"/>
+                        <TextBlock Text="{Binding Status, StringFormat='Статус сотрудника: {0}'}" FontSize="12" Foreground="White"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Column="2">
-                        <Button x:Name="EditEmloyyeInfo" Content="Редактировать" Click="EditEmloyyeInfo_Click"/>
-                        <Button x:Name="FireEmployye" Content="Уволить сотрудника" Click="FireEmployye_Click"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="FireEmployye" Content="Уволить сотрудника" Click="FireEmployee_Click" Width="150" Height="30" HorizontalAlignment="Right" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                        Foreground="White"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -49,9 +51,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="TopPanel" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
-            <Label Content="Поиск:"/>
-            <TextBox Width="250" Name="TBSearch" TextChanged="TBSearch_TextChanged" VerticalAlignment="Center"/>
-            <Button x:Name="BtnCreateEmployye"  Content="Добавить клиента" Margin="10 0" Width="150" Click="BtnCreateEmployye_Click"/>
+            <Label Content="Поиск:" Foreground="White"/>
+            <TextBox Width="250" Name="TBSearch" FontSize="20" TextChanged="TBSearch_TextChanged" VerticalAlignment="Center" Height="30" Background="#162033" Foreground="White" BorderBrush="#324055">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Button x:Name="BtnCreateEmployye"  Content="Добавить клиента" Margin="10 0" Width="150"  Click="BtnCreateEmployye_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Height="30"
+                 Foreground="White" />
         </StackPanel>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="EmployyeList" ItemTemplate="{StaticResource EmployyeTemplate}"/>
