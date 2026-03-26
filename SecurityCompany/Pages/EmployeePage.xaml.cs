@@ -99,7 +99,47 @@ namespace SecurityCompany.Pages
 
         private void OpenEditSecurityWindow(Security security)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (isEditWindowOpen || EditSecurityWindow.isEditWindowOpen)
+                {
+                    MessageBox.Show("Окно редактирования уже открыто. Сначала закройте его.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                isEditWindowOpen = true;
+
+                // Создаем и открываем окно редактирования
+                var editWindow = new EditSecurityWindow(security);
+                editWindow.Owner = Window.GetWindow(this);
+                editWindow.Closed += (s, args) =>
+                {
+                    isEditWindowOpen = false;
+                    try
+                    {
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                       MessageBox.Show("Ошибка при обновлении данных", $"{ex}", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                };
+                editWindow.ShowDialog();
+
+                try
+                {
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при обновлении данных", $"{ex}", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                isEditWindowOpen = false;
+                MessageBox.Show("Ошибка при открытии окна редактирования", $"{ex}", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void FireEmployee_Click(object sender, RoutedEventArgs e)
@@ -162,7 +202,7 @@ namespace SecurityCompany.Pages
             RefreshSecurityList();
         }
 
-        private void BtnCreateEmployye_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateEmployee_Click(object sender, RoutedEventArgs e)
         {
             OpenEditSecurityWindow(null);
         }
