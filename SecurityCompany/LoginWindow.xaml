@@ -1,0 +1,26 @@
+﻿<Window x:Class="SecurityCompany.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SecurityCompany"
+        mc:Ignorable="d" Background="#162033"
+        Title="LoginWindow" Height="400" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/Resources/logowithout.png" Height="100"/>
+            <TextBlock Text="Авторизация" Foreground="White" FontSize="24" FontWeight="DemiBold" HorizontalAlignment="Center"/>
+            <Label Content="Логин" Foreground="White"/>
+            <TextBox x:Name="TBLogin" Width="200" Height="25" FontSize="16"/>
+            <Label Content="Пароль" Foreground="White"/>
+            <PasswordBox x:Name="TBPassword" Width="200" Height="25" FontSize="16" />
+            <Button Margin="0 10 0 0" Content="Войти" Background="#131C2E" BorderBrush="#2E3C50" BorderThickness="1" Foreground="White" FontWeight="DemiBold" Height="30" Name="BtnLogin" Click="BtnLogin_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

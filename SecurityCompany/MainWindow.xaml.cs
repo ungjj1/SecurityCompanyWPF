@@ -20,9 +20,33 @@ namespace SecurityCompany
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+       private User currentuser;
+        public MainWindow(User user)
         {
             InitializeComponent();
+            this.currentuser = user;
+            TBUserName.Text = $"{user.Surname} {user.FirstName} {user.Patronymic}";
+            TBRole.Text = $"{user.Role}";
+        }
+
+        private void BtnClient_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BtnEmployees_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnObject_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
