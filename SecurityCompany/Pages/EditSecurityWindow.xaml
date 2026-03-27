@@ -20,7 +20,7 @@
                 <TextBox x:Name="TBFirstName"/>
                 <Label Content="Имя:"/>
                 <TextBox x:Name="TBSecondName"/>
-                <Label Content="Фамилия:"/>
+                <Label Content="Должность:"/>
                 <TextBox x:Name="TBPostName"/>
                 <Label Content="Статус:"/>
                 <ComboBox x:Name="StatusComboBox" SelectedItem="0">

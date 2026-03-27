@@ -57,13 +57,13 @@ namespace SecurityCompany.Pages
                 if (allSecurity == null) return;
 
                 // Начинаем с полного списка
-                IEnumerable<Security> filteredEmployye = allSecurity;
+                IEnumerable<Security> filteredEmployee = allSecurity;
 
                 // Применяем поиск
                 string searchText = TBSearch.Text?.ToLower() ?? "";
                 if (!string.IsNullOrWhiteSpace(searchText))
                 {
-                    filteredEmployye = filteredEmployye.Where(e =>
+                    filteredEmployee = filteredEmployee.Where(e =>
                         (e.FirstName != null && e.FirstName.ToLower().Contains(searchText)) ||
                         (e.SecondName != null && e.SecondName.ToLower().Contains(searchText)) ||
                         (e.Post != null && e.Post.ToLower().Contains(searchText)) ||
@@ -71,7 +71,7 @@ namespace SecurityCompany.Pages
                     );
                 }
 
-                EmployyeList.ItemsSource = filteredEmployye.ToList();
+                EmployyeList.ItemsSource = filteredEmployee.ToList();
             }
             catch (Exception ex)
             {
