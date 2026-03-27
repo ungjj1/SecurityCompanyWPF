@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SecurityCompany.Pages"
         mc:Ignorable="d"
-        Title="EditSecurityWindow" Height="550" Width="350">
+        Title="EditSecurityWindow" Height="550" Width="350" Background="#162033">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -14,26 +14,50 @@
         <ScrollViewer Grid.Row="0">
             <StackPanel VerticalAlignment="Top" Margin="5,0,5,0" Orientation="Vertical">
                 <Label HorizontalAlignment="Center" FontWeight="Bold"
-           Margin="0,10,0,0" x:Name="TitleWindow"
+           Margin="0,10,0,0" x:Name="TitleWindow" Foreground="White"
            FontSize="16"/>
-                <Label Content="Фамилия:"/>
-                <TextBox x:Name="TBFirstName"/>
-                <Label Content="Имя:"/>
-                <TextBox x:Name="TBSecondName"/>
-                <Label Content="Должность:"/>
-                <TextBox x:Name="TBPostName"/>
-                <Label Content="Статус:"/>
-                <ComboBox x:Name="StatusComboBox" SelectedItem="0">
+                <Label Content="Фамилия:" Foreground="White"/>
+                <TextBox x:Name="TBFirstName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Имя:" Foreground="White"/>
+                <TextBox x:Name="TBSecondName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Должность:" Foreground="White"/>
+                <TextBox x:Name="TBPostName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Статус:" Foreground="White"/>
+                <ComboBox x:Name="StatusComboBox" SelectedItem="0"  Background="#162033" Foreground="White" BorderBrush="#324055">
                     <ComboBoxItem Tag="OnBase">На базе</ComboBoxItem>
                     <ComboBoxItem Tag="OnObject">На объекте</ComboBoxItem>
                     <ComboBoxItem Tag="AtHome">Выходной</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Text="Фото:" Margin="0,0,0,5"/>
+                <TextBlock Text="Фото:" Margin="0,0,0,5" Foreground="White"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBox x:Name="PhotoTextBox" Width="212" Margin="0,0,10,0" 
-                        Padding="5" IsReadOnly="True"/>
-                    <Button x:Name="BrowsePhotoButton" Content="Обзор..." Width="80" 
-                        Height="30" Click="BrowsePhotoButton_Click"/>
+                        Padding="5" IsReadOnly="True"  Background="#162033" Foreground="White" BorderBrush="#324055">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style></TextBox.Resources></TextBox>
+                    <Button x:Name="BrowsePhotoButton" Content="Обзор..." Width="80"  Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Height="40" 
+                 Foreground="White" Click="BrowsePhotoButton_Click"/>
+                         
                 </StackPanel>
                 <Border BorderBrush="Gray" BorderThickness="1"
                         Width="300" Height="200" HorizontalAlignment="Left">
@@ -44,9 +68,11 @@
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
             <Button x:Name="SaveButton" Click="SaveButton_Click"
-             Margin="0,0,5,0" Width="95" Height="30" Content="Сохранить"/>
+             Margin="0,0,5,0" Width="95" Height="30" Content="Сохранить" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Foreground="White"/>
             <Button x:Name="CloseButton" Click="CloseButton_Click"
-             Margin="0,0,0,0" Width="75" Height="30" Content="Закрыть"/>
+             Margin="0,0,0,0" Width="75" Height="30" Content="Закрыть" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Foreground="White"/>
         </StackPanel>
     </Grid>
 </Window>
