@@ -1,11 +1,11 @@
-﻿<Window x:Class="SecurityCompany.Pages.EditSecurityWindow"
+﻿<Window x:Class="SecurityCompany.Pages.EditObjectWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SecurityCompany.Pages"
         mc:Ignorable="d"
-        Title="EditSecurityWindow" Height="550" Width="350" Background="#162033" WindowStartupLocation="CenterScreen">
+        Title="EditObjectWindow" Height="550" Width="350" Background="#162033" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -16,24 +16,16 @@
                 <Label HorizontalAlignment="Center" FontWeight="Bold"
            Margin="0,10,0,0" x:Name="TitleWindow" Foreground="White"
            FontSize="16"/>
-                <Label Content="Фамилия:" Foreground="White"/>
-                <TextBox x:Name="TBFirstName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                <Label Content="Название объекта:" Foreground="White"/>
+                <TextBox x:Name="TBName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
                     <TextBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
-                <Label Content="Имя:" Foreground="White"/>
-                <TextBox x:Name="TBSecondName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
-                    <TextBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-                <Label Content="Должность:" Foreground="White"/>
-                <TextBox x:Name="TBPostName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                <Label Content="Адрес объекта:" Foreground="White"/>
+                <TextBox x:Name="TBAdress"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
                     <TextBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -41,11 +33,20 @@
                     </TextBox.Resources>
                 </TextBox>
                 <Label Content="Статус:" Foreground="White"/>
-                <ComboBox x:Name="StatusComboBox" SelectedItem="0"  Background="#162033" Foreground="White" BorderBrush="#324055">
-                    <ComboBoxItem Tag="OnBase">На базе</ComboBoxItem>
-                    <ComboBoxItem Tag="OnObject">На объекте</ComboBoxItem>
-                    <ComboBoxItem Tag="AtHome">Выходной</ComboBoxItem>
+                <ComboBox x:Name="StatusComboBox" SelectedItem="0"  Background="#162033" Foreground="Black" BorderBrush="#324055">
+                    <ComboBoxItem Tag="OnBase">Под охранной</ComboBoxItem>
+                    <ComboBoxItem Tag="OnObject">Временная охрана</ComboBoxItem>
+                    <ComboBoxItem Tag="AtHome">Без охраны</ComboBoxItem>
                 </ComboBox>
+                <Label Content="Сотрудник:" Foreground="White"/>
+                <ComboBox Name="SecurityComboBox"  
+                      Background="#162033" 
+                      Foreground="Black" 
+                      BorderBrush="#324055" 
+                      Height="25" 
+                      FontSize="16"
+                      DisplayMemberPath="FullName"
+                      SelectedValuePath="Id"/>      
                 <TextBlock Text="Фото:" Margin="0,0,0,5" Foreground="White"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBox x:Name="PhotoTextBox" Width="212" Margin="0,0,10,0" 
@@ -53,16 +54,18 @@
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
-                            </Style></TextBox.Resources></TextBox>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                     <Button x:Name="BrowsePhotoButton" Content="Обзор..." Width="80"  Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
                  Height="40" 
                  Foreground="White" Click="BrowsePhotoButton_Click"/>
-                         
+
                 </StackPanel>
                 <Border BorderBrush="Gray" BorderThickness="1"
                         Width="300" Height="200" HorizontalAlignment="Left">
                     <Image x:Name="PhotoPreview" Stretch="Uniform"
-                        Source="/Resources/Avatar.png"/>
+                        Source="/Resources/building.png"/>
                 </Border>
             </StackPanel>
         </ScrollViewer>

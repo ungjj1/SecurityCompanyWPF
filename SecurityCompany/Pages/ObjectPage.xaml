@@ -5,10 +5,73 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SecurityCompany.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="990"
       Title="ObjectPage">
-
-    <Grid>
-        
+    <Page.Resources>
+        <local:ImageConverter x:Key="ImageConverter"/>
+        <DataTemplate x:Key="ObjectsTemplate">
+            <Border Margin="0 5" Padding="10" Height="140" BorderBrush="LightGray" BorderThickness="1" Background="Transparent" MouseLeftButtonUp="Border_MouseLeftButtonUp">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+                        <Image Source="{Binding Path=ObjectPhoto, Converter={StaticResource ImageConverter}}"/>
+                    </Border>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20 0 0 0">
+                        <TextBlock Foreground="White" FontWeight="Bold" Text="{Binding Name, StringFormat='Название объекта: {0}'}"/>
+                        <TextBlock Foreground="White" FontSize="12" Text="{Binding Adress, StringFormat='Адрес: {0}'}"/>
+                        <TextBlock Text="{Binding Status, StringFormat='Статус объекта: {0}'}" FontSize="12" Foreground="White"/>
+                        <TextBlock Name="TxtSecuruty" Foreground="White" FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="BtnReport" Click="BtnReport_Click" Content="Отчет по объекту" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                        Foreground="White" Height="30" Width="120"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="TopPanel" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+            <Label Content="Поиск:" Foreground="White"/>
+            <TextBox Width="175" Name="TBSearch" FontSize="20" TextChanged="TBSearch_TextChanged" VerticalAlignment="Center" Height="30" Background="#162033" Foreground="White" BorderBrush="#324055" SelectionChanged="TBSearch_SelectionChanged">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Label Content="Сортировка" Foreground="White"/>
+            <ComboBox x:Name="SortStutusComboBox" SelectedItem="0" Width="150">
+                <ComboBoxItem Tag="Secured">под охраной</ComboBoxItem>
+                <ComboBoxItem Tag="Temporarily">временная охрана</ComboBoxItem>
+                <ComboBoxItem Tag="NotSecure">не охраняемый</ComboBoxItem>
+            </ComboBox>
+            <Label Content="Фильтр:" Foreground="white"/>
+            <ComboBox x:Name="FilterComboBox" SelectedItem="0" Width="150" SelectionChanged="FilterComboBox_SelectionChanged"/> 
+            <Button x:Name="BtnCreateObject"  Content="Добавить объект" Margin="10 0" Width="150"  Click="BtnCreateObject_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Height="30"
+                 Foreground="White" />
+            <Button Content="Отчёт" Name="BtnFullReport" Click="BtnFullReport_Click" Width="100" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ObjectList" ItemTemplate="{StaticResource ObjectsTemplate}"/>
+        </ScrollViewer>
     </Grid>
 </Page>

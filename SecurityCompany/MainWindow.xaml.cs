@@ -48,7 +48,7 @@ namespace SecurityCompany
 
         private void BtnObject_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Pages.ObjectPage());
+            MainFrame.Navigate(new Pages.ObjectPage(currentUser));
             this.Title = "ГАРД - Объекты";
         }
 

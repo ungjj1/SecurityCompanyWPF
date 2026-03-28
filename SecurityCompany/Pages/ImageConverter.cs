@@ -14,20 +14,54 @@ namespace SecurityCompany.Pages
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            // Проверяем, есть ли изображение в базе
             if (value is byte[] bytes && bytes.Length > 0)
             {
-                using (MemoryStream stream = new MemoryStream(bytes))
+                try
                 {
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.StreamSource = stream;
-                    image.EndInit();
-                    image.Freeze();
-                    return image;
+                    using (MemoryStream stream = new MemoryStream(bytes))
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.BeginInit();
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.StreamSource = stream;
+                        image.EndInit();
+                        image.Freeze();
+                        return image;
+                    }
+                }
+                catch
+                {
+                    // Если не удалось загрузить изображение из БД, возвращаем заглушку
+                    return GetPlaceholderImage();
                 }
             }
-            return null;
+
+            // Если изображения нет в БД, возвращаем заглушку
+            return GetPlaceholderImage();
+        }
+
+        private BitmapImage GetPlaceholderImage()
+        {
+            try
+            {
+                // Путь к заглушке (Avatar.png должна быть в папке Resources)
+                string imagePath = "pack://application:,,,/Resources/building.png";
+
+                BitmapImage placeholder = new BitmapImage();
+                placeholder.BeginInit();
+                placeholder.UriSource = new Uri(imagePath, UriKind.Absolute);
+                placeholder.CacheOption = BitmapCacheOption.OnLoad;
+                placeholder.EndInit();
+                placeholder.Freeze();
+
+                return placeholder;
+            }
+            catch
+            {
+                // Если не удалось загрузить заглушку, возвращаем null
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

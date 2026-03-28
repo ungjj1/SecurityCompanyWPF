@@ -14,6 +14,8 @@ namespace SecurityCompany
     
     public partial class Security
     {
+        public string FullName => $"{FirstName} {SecondName}";
+       
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Security()
         {
