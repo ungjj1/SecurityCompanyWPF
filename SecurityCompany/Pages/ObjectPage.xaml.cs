@@ -35,10 +35,19 @@ namespace SecurityCompany.Pages
             {
                 BtnCreateObject.Visibility = Visibility.Collapsed;
             }
-
+            LoadSortOptions();
             LoadData();
         }
-
+        private void LoadSortOptions()
+        {
+            SortComboBox.Items.Clear();
+            SortComboBox.Items.Add("Без сортировки");
+            SortComboBox.Items.Add("По названию объекта (А-Я)");
+            SortComboBox.Items.Add("По названию объекта (Я-А)");
+            SortComboBox.Items.Add("По адресу (А-Я)");
+            SortComboBox.Items.Add("По адресу(Я - А)");
+            SortComboBox.SelectedIndex = 0;
+        }
         private void LoadData()
         {
             try
@@ -61,7 +70,7 @@ namespace SecurityCompany.Pages
                     FilterComboBox.Items.Add(status);
                 }
                 FilterComboBox.SelectedIndex = 0;
-                SortStutusComboBox.SelectedIndex = 0;
+                SortComboBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -75,12 +84,12 @@ namespace SecurityCompany.Pages
             {
                 if (allObjects == null) return;
 
-                IEnumerable<Object> filteredOrders = allObjects;
+                IEnumerable<Object> filteredObjects = allObjects;
 
                 string searchText = TBSearch.Text?.ToLower() ?? "";
                 if (!string.IsNullOrWhiteSpace(searchText))
                 {
-                    filteredOrders = filteredOrders.Where(o =>
+                    filteredObjects = filteredObjects.Where(o =>
                         (o.Name != null && o.Name.ToLower().Contains(searchText)) ||
                         (o.Adress != null && o.Adress.ToLower().Contains(searchText)) ||
                         (o.Security != null && o.Security.FirstName != null && o.Security.FirstName.ToLower().Contains(searchText)) ||
@@ -88,37 +97,56 @@ namespace SecurityCompany.Pages
                     );
                 }
 
-                // Фильтрация по статусу
-                if (FilterComboBox.SelectedItem != null && FilterComboBox.SelectedItem.ToString() != "Все статусы")
+                if (SortComboBox.SelectedItem != null && SortComboBox.SelectedItem.ToString() != "Без фильтров")
                 {
-                    string selectedStatus = FilterComboBox.SelectedItem.ToString();
-                    filteredOrders = filteredOrders.Where(o => o.Status == selectedStatus);
+                    string selectedSort = SortComboBox.SelectedItem.ToString();
+
+                    switch (selectedSort)
+                    {
+                        case "По названию объекта (А-Я)":
+                            filteredObjects = filteredObjects.OrderBy(c => c.Name);
+                            break;
+
+                        case "По названию объекта (Я-А)":
+                            filteredObjects = filteredObjects.OrderByDescending(c => c.Name);
+                            break;
+
+                        case "По адресу (А-Я)":
+                            filteredObjects = filteredObjects.OrderBy(c => c.Adress);
+                            break;
+
+                        case "По адресу (Я-А)":
+                            filteredObjects = filteredObjects.OrderByDescending(c => c.Adress);
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 // Сортировка
-                if (SortStutusComboBox.SelectedItem != null)
+                if (SortComboBox.SelectedItem != null)
                 {
-                    var selectedSort = SortStutusComboBox.SelectedItem as ComboBoxItem;
+                    var selectedSort = SortComboBox.SelectedItem as ComboBoxItem;
                     string sortTag = selectedSort?.Tag as string;
 
                     switch (sortTag)
                     {
                         case "Secured":
-                            filteredOrders = filteredOrders.OrderBy(o => o.Status);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
                             break;
                         case "Temporarily":
-                            filteredOrders = filteredOrders.OrderBy(o => o.Status);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
                             break;
                         case "NotSecure":
-                            filteredOrders = filteredOrders.OrderBy(o => o.Status);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
                             break;
                         default:
-                            filteredOrders = filteredOrders.OrderBy(o => o.Id);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Id);
                             break;
                     }
                 }
 
-                ObjectList.ItemsSource = filteredOrders.ToList();
+                ObjectList.ItemsSource = filteredObjects.ToList();
             }
             catch (Exception ex)
             {
@@ -216,6 +244,11 @@ namespace SecurityCompany.Pages
 
         // Добавьте этот метод, если его нет в XAML
         private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RefreshObjectsList();
+        }
+
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshObjectsList();
         }

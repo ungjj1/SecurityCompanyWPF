@@ -41,7 +41,7 @@
                     </TextBox.Resources>
                 </TextBox>
                 <Label Content="Статус:" Foreground="White"/>
-                <ComboBox x:Name="StatusComboBox" SelectedItem="0"  Background="#162033" Foreground="White" BorderBrush="#324055">
+                <ComboBox x:Name="StatusComboBox" SelectedItem="0" Foreground="Black" BorderBrush="#324055">
                     <ComboBoxItem Tag="OnBase">На базе</ComboBoxItem>
                     <ComboBoxItem Tag="OnObject">На объекте</ComboBoxItem>
                     <ComboBoxItem Tag="AtHome">Выходной</ComboBoxItem>

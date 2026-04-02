@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SecurityCompany.Pages"
         mc:Ignorable="d"
-        Title="EditClientWindow" Height="450" Width="800">
+                Title="EditSecurityWindow" Height="350" Width="350" Background="#162033" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <StackPanel VerticalAlignment="Top" Margin="5,0,5,0" Orientation="Vertical">
+                <Label HorizontalAlignment="Center" FontWeight="Bold"
+           Margin="0,10,0,0" x:Name="TitleWindow" Foreground="White"
+           FontSize="16"/>
+                <Label Content="Название компании:" Foreground="White"/>
+                <TextBox x:Name="TBCompanyName"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Документ:" Foreground="White"/>
+                <TextBox x:Name="TBDocNum"  Background="#162033" Foreground="White" BorderBrush="#324055" Height="25" FontSize="16">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Объект:" Foreground="White"/>
+                <ComboBox x:Name="ObjectsComboBox" SelectedItem="0"  Background="#162033" Foreground="Black" BorderBrush="#324055">
+                    </ComboBox>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button x:Name="SaveButton" Click="SaveButton_Click"
+             Margin="0,0,5,0" Width="95" Height="30" Content="Сохранить" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Foreground="White"/>
+            <Button x:Name="CloseButton" Click="CloseButton_Click"
+             Margin="0,0,0,0" Width="75" Height="30" Content="Закрыть" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+                 Foreground="White"/>
+        </StackPanel>
     </Grid>
 </Window>

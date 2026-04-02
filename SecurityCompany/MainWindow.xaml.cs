@@ -36,7 +36,7 @@ namespace SecurityCompany
 
         private void BtnClient_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Pages.ClientPage());
+            MainFrame.Navigate(new Pages.ClientPage(currentUser));
             this.Title = "ГАРД - Клиенты";
         }
 

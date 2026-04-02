@@ -58,11 +58,7 @@
                 </TextBox.Resources>
             </TextBox>
             <Label Content="Сортировка" Foreground="White"/>
-            <ComboBox x:Name="SortStutusComboBox" SelectedItem="0" Width="150">
-                <ComboBoxItem Tag="Secured">под охраной</ComboBoxItem>
-                <ComboBoxItem Tag="Temporarily">временная охрана</ComboBoxItem>
-                <ComboBoxItem Tag="NotSecure">не охраняемый</ComboBoxItem>
-            </ComboBox>
+            <ComboBox x:Name="SortComboBox" SelectedItem="0" Width="150" SelectionChanged="SortComboBox_SelectionChanged"/>
             <Label Content="Фильтр:" Foreground="white"/>
             <ComboBox x:Name="FilterComboBox" SelectedItem="0" Width="150" SelectionChanged="FilterComboBox_SelectionChanged"/> 
             <Button x:Name="BtnCreateObject"  Content="Добавить объект" Margin="10 0" Width="150"  Click="BtnCreateObject_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"

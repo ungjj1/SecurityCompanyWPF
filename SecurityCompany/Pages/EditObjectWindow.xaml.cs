@@ -75,7 +75,6 @@ namespace SecurityCompany.Pages
                              "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
             this.Closed += (s, o) => IsEditWindowOpen = false;
         }
 
@@ -86,7 +85,7 @@ namespace SecurityCompany.Pages
                 // Получаем список всех охранников
                 var securityList = App.db.Security.ToList();
                 SecurityComboBox.ItemsSource = securityList;
-                SecurityComboBox.DisplayMemberPath = "SecondName"; // Или можно создать FullName
+                SecurityComboBox.DisplayMemberPath = "FullName"; 
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@ namespace SecurityCompany.Pages
     {
         private User currentUser;
         private List<Client> allClients;
-        private static bool isEditWindowOpen = false;
+        private static bool IsEditWindowOpen = false;
 
         public ClientPage(User user)
         {
@@ -28,7 +28,6 @@ namespace SecurityCompany.Pages
                 BtnFullReport.Visibility = Visibility.Collapsed;
             }
 
-            // Заполняем ComboBox для сортировки
             LoadSortOptions();
 
             LoadData();
@@ -51,13 +50,13 @@ namespace SecurityCompany.Pages
         {
             try
             {
-                // Загружаем клиентов с информацией об объектах
                 allClients = App.db.Client
                     .Include(c => c.Object)
                     .Include(c => c.Object.Security)
                     .ToList();
 
                 RefreshClientList();
+
             }
             catch (Exception ex)
             {
@@ -119,8 +118,7 @@ namespace SecurityCompany.Pages
                     }
                 }
 
-                // Исправлено: ObjectList на ClientList (согласно XAML)
-                ObjectList.ItemsSource = filteredClients.ToList();
+                ClientsList.ItemsSource = filteredClients.ToList();
             }
             catch (Exception ex)
             {
@@ -198,7 +196,7 @@ namespace SecurityCompany.Pages
 
         private void GenerateReport()
         {
-            var clients = ObjectList.ItemsSource as List<Client>;
+            var clients = ClientsList.ItemsSource as List<Client>;
             if (clients == null || !clients.Any())
             {
                 MessageBox.Show("Нет данных для формирования отчета", "Информация",
@@ -256,27 +254,27 @@ namespace SecurityCompany.Pages
         {
             try
             {
-                if (isEditWindowOpen || EditClientWindow.IsEditWindowOpen)
+                if (IsEditWindowOpen || EditClientWindow.IsEditWindowOpen)
                 {
                     MessageBox.Show("Окно редактирования уже открыто", "Ошибка",
                                   MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                isEditWindowOpen = true;
+                IsEditWindowOpen = true;
 
                 var editWindow = new EditClientWindow(client);
                 editWindow.Owner = Window.GetWindow(this);
                 editWindow.Closed += (s, args) =>
                 {
-                    isEditWindowOpen = false;
+                    IsEditWindowOpen = false;
                     LoadData(); // Обновляем данные после закрытия окна
                 };
                 editWindow.ShowDialog();
             }
             catch (Exception ex)
             {
-                isEditWindowOpen = false;
+                IsEditWindowOpen = false;
                 MessageBox.Show($"Ошибка при открытии окна редактирования: {ex.Message}",
                               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
