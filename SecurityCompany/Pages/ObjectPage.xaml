@@ -64,7 +64,7 @@
             <Button x:Name="BtnCreateObject"  Content="Добавить объект" Margin="10 0" Width="150"  Click="BtnCreateObject_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
                  Height="30"
                  Foreground="White" />
-            <Button Content="Отчёт" Name="BtnFullReport" Click="BtnFullReport_Click" Width="100" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold" />
+            <Button Content="Отчёт" Name="BtnFullReport" Click="BtnFullReport_Click" Width="100" Margin="10 0 0 0" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold" />
         </StackPanel>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="ObjectList" ItemTemplate="{StaticResource ObjectsTemplate}"/>

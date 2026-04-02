@@ -32,6 +32,10 @@ namespace SecurityCompany.Pages
             {
                 BtnCreateObject.Visibility = Visibility.Collapsed;
             }
+            if (currentUser != null && currentUser.Role == "Охранник")
+            {
+                BtnFullReport.Visibility = Visibility.Collapsed;
+            }
             LoadSortOptions();
             LoadData();
         }
