@@ -59,7 +59,7 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <Button x:Name="BtnCreateEmployye"  Content="Добавить клиента" Margin="10 0" Width="150"  Click="BtnCreateEmployee_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
+            <Button x:Name="BtnCreateEmployye"  Content="Добавить сотрудника" Margin="10 0" Width="150"  Click="BtnCreateEmployee_Click" Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
                  Height="30"
                  Foreground="White" />
         </StackPanel>

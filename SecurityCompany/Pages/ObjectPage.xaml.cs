@@ -17,9 +17,6 @@ using System.Xml.Serialization;
 
 namespace SecurityCompany.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для ObjectPage.xaml
-    /// </summary>
     public partial class ObjectPage : Page
     {
         private User currentUser;
@@ -38,6 +35,7 @@ namespace SecurityCompany.Pages
             LoadSortOptions();
             LoadData();
         }
+
         private void LoadSortOptions()
         {
             SortComboBox.Items.Clear();
@@ -45,24 +43,25 @@ namespace SecurityCompany.Pages
             SortComboBox.Items.Add("По названию объекта (А-Я)");
             SortComboBox.Items.Add("По названию объекта (Я-А)");
             SortComboBox.Items.Add("По адресу (А-Я)");
-            SortComboBox.Items.Add("По адресу(Я - А)");
+            SortComboBox.Items.Add("По адресу (Я-А)");
             SortComboBox.SelectedIndex = 0;
         }
+
         private void LoadData()
         {
             try
             {
                 allObjects = App.db.Object.ToList();
-                RefreshObjectsList();
 
-                var statuses = App.db
-                    .Object.Select(p => p.Status)
+                // Загружаем статусы для фильтра
+                var statuses = App.db.Object
+                    .Select(p => p.Status)
                     .Where(m => !string.IsNullOrEmpty(m))
                     .Distinct()
                     .OrderBy(m => m)
                     .ToList();
 
-                FilterComboBox.Items.Clear(); // Очищаем перед добавлением
+                FilterComboBox.Items.Clear();
                 FilterComboBox.Items.Add("Все статусы");
 
                 foreach (var status in statuses)
@@ -70,7 +69,9 @@ namespace SecurityCompany.Pages
                     FilterComboBox.Items.Add(status);
                 }
                 FilterComboBox.SelectedIndex = 0;
-                SortComboBox.SelectedIndex = 0;
+
+                // Обновляем список
+                RefreshObjectsList();
             }
             catch (Exception ex)
             {
@@ -86,6 +87,7 @@ namespace SecurityCompany.Pages
 
                 IEnumerable<Object> filteredObjects = allObjects;
 
+                // Поиск
                 string searchText = TBSearch.Text?.ToLower() ?? "";
                 if (!string.IsNullOrWhiteSpace(searchText))
                 {
@@ -97,51 +99,31 @@ namespace SecurityCompany.Pages
                     );
                 }
 
-                if (SortComboBox.SelectedItem != null && SortComboBox.SelectedItem.ToString() != "Без фильтров")
+                // Фильтрация по статусу
+                if (FilterComboBox.SelectedItem != null && FilterComboBox.SelectedItem.ToString() != "Все статусы")
+                {
+                    string selectedStatus = FilterComboBox.SelectedItem.ToString();
+                    filteredObjects = filteredObjects.Where(o => o.Status == selectedStatus);
+                }
+
+                // Сортировка (исправленная версия)
+                if (SortComboBox.SelectedItem != null && SortComboBox.SelectedItem.ToString() != "Без сортировки")
                 {
                     string selectedSort = SortComboBox.SelectedItem.ToString();
 
                     switch (selectedSort)
                     {
                         case "По названию объекта (А-Я)":
-                            filteredObjects = filteredObjects.OrderBy(c => c.Name);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Name);
                             break;
-
                         case "По названию объекта (Я-А)":
-                            filteredObjects = filteredObjects.OrderByDescending(c => c.Name);
+                            filteredObjects = filteredObjects.OrderByDescending(o => o.Name);
                             break;
-
                         case "По адресу (А-Я)":
-                            filteredObjects = filteredObjects.OrderBy(c => c.Adress);
+                            filteredObjects = filteredObjects.OrderBy(o => o.Adress);
                             break;
-
                         case "По адресу (Я-А)":
-                            filteredObjects = filteredObjects.OrderByDescending(c => c.Adress);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                // Сортировка
-                if (SortComboBox.SelectedItem != null)
-                {
-                    var selectedSort = SortComboBox.SelectedItem as ComboBoxItem;
-                    string sortTag = selectedSort?.Tag as string;
-
-                    switch (sortTag)
-                    {
-                        case "Secured":
-                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
-                            break;
-                        case "Temporarily":
-                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
-                            break;
-                        case "NotSecure":
-                            filteredObjects = filteredObjects.OrderBy(o => o.Status);
-                            break;
-                        default:
-                            filteredObjects = filteredObjects.OrderBy(o => o.Id);
+                            filteredObjects = filteredObjects.OrderByDescending(o => o.Adress);
                             break;
                     }
                 }
@@ -158,7 +140,6 @@ namespace SecurityCompany.Pages
         {
             try
             {
-                // Исправлено: используем правильное имя статического поля IsEditWindowOpen (с большой буквы)
                 if (isEditWindowOpen || EditObjectWindow.IsEditWindowOpen)
                 {
                     MessageBox.Show("Окно редактирования уже открыто", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -172,15 +153,7 @@ namespace SecurityCompany.Pages
                 editWindow.Closed += (s, args) =>
                 {
                     isEditWindowOpen = false;
-
-                    try
-                    {
-                        LoadData();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка при обновлении данных", $"{ex}", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    LoadData();
                 };
                 editWindow.ShowDialog();
             }
@@ -202,7 +175,6 @@ namespace SecurityCompany.Pages
                 {
                     if (currentUser.Role == "Управляющий")
                     {
-                        
                         OpenEditWindow(object1);
                     }
                     else
@@ -217,16 +189,6 @@ namespace SecurityCompany.Pages
             }
         }
 
-        private void BtnReport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnFullReport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void BtnCreateObject_Click(object sender, RoutedEventArgs e)
         {
             OpenEditWindow(null);
@@ -237,12 +199,6 @@ namespace SecurityCompany.Pages
             RefreshObjectsList();
         }
 
-        private void TBSearch_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            RefreshObjectsList();
-        }
-
-        // Добавьте этот метод, если его нет в XAML
         private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             RefreshObjectsList();
@@ -251,6 +207,21 @@ namespace SecurityCompany.Pages
         private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshObjectsList();
+        }
+
+        private void TBSearch_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            RefreshObjectsList();
+        }
+
+        private void BtnReport_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Реализовать отчет по одному объекту
+        }
+
+        private void BtnFullReport_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Реализовать полный отчет по всем объектам
         }
     }
 }

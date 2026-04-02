@@ -25,12 +25,26 @@ namespace SecurityCompany
         {
             InitializeComponent();
             this.currentUser = user;
+
+            MainFrame.Navigate(new Pages.ObjectPage(currentUser));
+
             TBUserName.Text = $"{currentUser.Surname} {currentUser.FirstName} {currentUser.Patronymic}";
             TBRole.Text = $"{currentUser.Role}";
 
-            if(currentUser.Role != "Управляющий")
+            if (currentUser != null && currentUser.Role == "Управляющий")
             {
-                BtnObject.Visibility = Visibility.Collapsed;
+                BtnCLient.Visibility = Visibility.Visible;
+                BtnEmployees.Visibility = Visibility.Visible;
+                BtnObject.Visibility = Visibility.Visible;
+            }
+            else if(currentUser != null && currentUser.Role == "Диспетчер")
+            {
+                BtnEmployees.Visibility = Visibility.Visible;
+                BtnObject.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnObject.Visibility = Visibility.Visible;
             }
         }
 

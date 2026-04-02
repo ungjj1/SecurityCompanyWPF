@@ -38,14 +38,14 @@
             <Button Content="Клиенты" Name="BtnCLient" Click="BtnClient_Click" 
                 Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
                 Height="40" Margin="5 10 5 0" 
-                Foreground="White" Width="200" BorderThickness="0"/>
+                Foreground="White" Width="200" BorderThickness="0" Visibility="Collapsed"/>
             <Button Content="Штат" Name="BtnEmployees" Click="BtnEmployees_Click"
                 Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
-                Height="40" Margin="5 10 5 0" 
+                Height="40" Margin="5 10 5 0" Visibility="Collapsed"
                 Foreground="White" Width="200" BorderThickness="0"/>
             <Button Content="Объекты" Name="BtnObject" Click="BtnObject_Click"
                 Style="{StaticResource HoverButtonStyle}" FontWeight="DemiBold"
-                Height="40" Margin="5 10 5 0" 
+                Height="40" Margin="5 10 5 0"  Visibility="Collapsed"
                 Foreground="White" Width="200" BorderThickness="0"/>   
         </StackPanel>
         <!--Низняя панель с администратором-->
